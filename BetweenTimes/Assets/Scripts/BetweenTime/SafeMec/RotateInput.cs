@@ -16,11 +16,8 @@ public class RotateInput : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        //float rot = Input.GetAxis("Mouse X") * rSpeed;
-        //transform.Rotate(-rot, 0, 0);
 
         Vector3 mouseToWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition - new Vector3(0, 0, Camera.main.transform.position.z));
-        //Debug.DrawLine(transform.position, mouseToWorld);
         mouseToWorld.z = 0f;
         Vector3 difference = mouseToWorld - transform.position;
         difference.Normalize();
