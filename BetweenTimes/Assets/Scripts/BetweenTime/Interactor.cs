@@ -24,12 +24,18 @@ public class Interactor : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             Debug.Log("Did Hit");
-            hoveredInteractable = hit.rigidbody.GetComponent<Interactable>();
-            if (hoveredInteractable != null)
-                hoveredInteractable.EventHover.Invoke();
+            var newHoveredInteractable = hit.rigidbody.GetComponent<Interactable>();
+            if (newHoveredInteractable != hoveredInteractable)
+            {
+                hoveredInteractable?.EventHoverExit.Invoke();
+                newHoveredInteractable?.EventHoverEnter.Invoke();
+            }
+            hoveredInteractable = newHoveredInteractable;
         }
         else
         {
+            hoveredInteractable?.EventHoverExit.Invoke();
+            hoveredInteractable = null;
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
             Debug.Log("Did not Hit");
         }

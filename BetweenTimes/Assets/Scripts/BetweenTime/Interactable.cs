@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public UnityEvent EventHover;
+    public UnityEvent EventHoverEnter;
+    public UnityEvent EventHoverExit;
     public UnityEvent EventInteract;
 
     void Awake()
