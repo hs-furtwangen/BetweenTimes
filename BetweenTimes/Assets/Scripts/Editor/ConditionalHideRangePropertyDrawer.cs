@@ -1,0 +1,75 @@
+﻿using Attributes;
+using UnityEditor;
+using UnityEngine;
+
+[CustomPropertyDrawer(typeof(ConditionalHideRangeAttribute))]
+    public class ConditionalHideRangePropertyDrawer : PropertyDrawer
+    {
+           public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        //get the attribute DataContainer
+        ConditionalHideRangeAttribute condHAtt = (ConditionalHideRangeAttribute)attribute;
+        //check if the property we want to draw should be enabled
+        bool enabled = GetConditionalHideAttributeResult(condHAtt, property);
+
+        //Enable/disable the property
+        bool wasEnabled = GUI.enabled;
+        GUI.enabled = enabled;
+        
+        //Check if we should draw the property
+        if (!condHAtt.HideInInspector || enabled)
+        {        
+            if (property.propertyType == SerializedPropertyType.Float)
+                EditorGUI.Slider(position, property, condHAtt.Min, condHAtt.Max, label);
+            else if (property.propertyType == SerializedPropertyType.Integer)
+                EditorGUI.IntSlider(position, property, (int)condHAtt.Min, (int)condHAtt.Max, label);
+            else
+                EditorGUI.LabelField(position, label.text, "Use Range with float or int.");
+            
+            //EditorGUI.PropertyField(position, property, label, true);
+        }
+
+        //Ensure that the next property that is being drawn uses the correct settings
+        GUI.enabled = wasEnabled;
+    }
+
+    private bool GetConditionalHideAttributeResult(ConditionalHideRangeAttribute condHAtt, SerializedProperty property)
+    {
+        bool enabled = true;
+        //Look for the sourcefield within the object that the property belongs to
+        string propertyPath = property.propertyPath; //returns the property path of the property we want to apply the attribute to
+        string conditionPath = propertyPath.Replace(property.name, condHAtt.ConditionalSourceField); //changes the path to the conditionalsource property path
+        SerializedProperty sourcePropertyValue = property.serializedObject.FindProperty(conditionPath);
+
+        if (sourcePropertyValue != null)
+        {
+            if(!condHAtt.Invert)
+                enabled = sourcePropertyValue.boolValue;
+            else
+                enabled = !sourcePropertyValue.boolValue;
+        }
+        else
+        {
+            Debug.LogWarning("Attempting to use a ConditionalHideAttribute but no matching SourcePropertyValue found in object: " + condHAtt.ConditionalSourceField);
+        }
+
+        return enabled;
+    }
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        ConditionalHideRangeAttribute condHAtt = (ConditionalHideRangeAttribute)attribute;
+        bool enabled = GetConditionalHideAttributeResult(condHAtt, property);
+
+        if (!condHAtt.HideInInspector || enabled)
+        {
+            return EditorGUI.GetPropertyHeight(property, label);
+        }
+        else
+        {
+            //The property is not being drawn
+            //We want to undo the spacing added before and after the property
+            return -EditorGUIUtility.standardVerticalSpacing;
+        }
+    } 
+    }
