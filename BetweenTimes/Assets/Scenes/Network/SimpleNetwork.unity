@@ -164,7 +164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &75718429
 GameObject:
@@ -260,7 +260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &276228181
 PrefabInstance:
@@ -479,7 +479,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &960914278
 GameObject:
@@ -598,6 +598,63 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1001 &1402459797
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5252794753206418403, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_Name
+      value: InteractableTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.713093
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.3802137
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252794753206418407, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 044cb86da1a04e24b8e24380ce500acc, type: 3}
 --- !u!1 &1589659892
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,7 +749,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688305695
 GameObject:
@@ -735,7 +792,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1871171594
 PrefabInstance:
@@ -911,10 +968,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6706051759928497515, guid: b98c5eec57f769b4cbb3f74372a34a53, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 4265642305311255545, guid: 479ef8e23cfc822478a18e9e4546a828, type: 3}
     - target: {fileID: 6706051759928497517, guid: b98c5eec57f769b4cbb3f74372a34a53, type: 3}
       propertyPath: m_Name
       value: BTNetworkManager
