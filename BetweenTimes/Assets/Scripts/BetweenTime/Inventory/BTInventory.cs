@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BetweenTime.Inventory
 {
-    public class BTInventory : IBTInventory
+    public class BTInventory : MonoBehaviour, IBTInventory
     {        
         [SerializeField] protected List<Item> inventory = new List<Item>();
         [SerializeField] protected int maxItems = 1;
@@ -15,7 +15,7 @@ namespace BetweenTime.Inventory
         [SerializeField] private bool showDebug;
         [SerializeField] private Color debugColor;
         
-        public override bool AddItem(Item itemToAdd)
+        public virtual bool AddItem(Item itemToAdd)
         {
             if (inventory.Count >= maxItems)
             {
@@ -28,10 +28,12 @@ namespace BetweenTime.Inventory
             return true;
         }
 
-        public override bool RemoveItem(Item itemToRemove)
+        public virtual bool RemoveItem(Item itemToRemove)
         {
             if (inventory.Count <= 0)
-            {DebugColored.Log(showDebug,debugColor,this,"Inventory empty!");   return false;}
+            {
+                DebugColored.Log(showDebug,debugColor,this,"Inventory empty!");   return false;
+            }
 
             if (inventory.Contains(itemToRemove))
             {
@@ -44,7 +46,7 @@ namespace BetweenTime.Inventory
             return false;
         }
 
-        public override void ClearInventory()
+        public virtual void ClearInventory()
         {
             inventory.Clear();
         }
