@@ -22,6 +22,10 @@ namespace BetweenTime.Network.Player
         public UnityEvent EventOnFireDown;
         public UnityEvent EventOnFire;
         public UnityEvent EventOnFireUp;
+        public UnityEvent<float> EventOnHorizontal = new UnityEvent<float>();
+        public UnityEvent<float> EventOnVertical = new UnityEvent<float>();
+        public UnityEvent<float> EventOnMouseX = new UnityEvent<float>();
+        public UnityEvent<float> EventOnMouseY = new UnityEvent<float>();
         #endregion
 
         public void StartInputObservation()
@@ -45,6 +49,22 @@ namespace BetweenTime.Network.Player
             if (Input.GetButtonUp("Fire1"))
             {
                 EventOnFireUp?.Invoke();
+            }
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+                EventOnHorizontal.Invoke(Input.GetAxis("Horizontal"));
+            }
+            if (Input.GetAxis("Vertical") != 0)
+            {
+                EventOnVertical.Invoke(Input.GetAxis("Vertical"));
+            }
+            if (Input.GetAxis("Mouse X") != 0)
+            {
+                EventOnHorizontal.Invoke(Input.GetAxis("Mouse X"));
+            }
+            if (Input.GetAxis("Mouse Y") != 0)
+            {
+                EventOnVertical.Invoke(Input.GetAxis("Mouse Y"));
             }
         }
     }

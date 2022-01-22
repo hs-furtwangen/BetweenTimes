@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public abstract class Interactable : MonoBehaviour
-{
-    UnityEvent EventHover;
-    UnityEvent EventInteract;
-
+public class InteractorControl : MonoBehaviour
+{    
     void Awake()
     {
-        if (gameObject.GetComponent<Collider>() == null) gameObject.AddComponent<BoxCollider>();
+        if (gameObject.GetComponent<Camera>() != null) gameObject.AddComponent<Interactor>();
     }
 
     // Start is called before the first frame update
