@@ -13,7 +13,7 @@ public class Quest : MonoBehaviour
     public Task[] tasks;
     [SerializeField] private string token;
     private bool _complete;
-    private Questcontroller
+    private Questcontroller _questcontroller;
     public bool Complete
     {
         get => _complete;

@@ -13,13 +13,13 @@ public class SafeOpened : Task
         safenum = 0;
         pin = 4433;
 
-        reset = false;
+       // reset = false;
     }
     public void Solve()
     {
         if (safenum == pin)
         {
-            TaskComplete();
+         //   TaskComplete();
         }
     }
 
@@ -28,6 +28,6 @@ public class SafeOpened : Task
     void Update()
     {
         Solve();
-        Restart();
+     //   Restart();
     }
 }

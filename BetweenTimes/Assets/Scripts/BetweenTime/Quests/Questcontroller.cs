@@ -36,8 +36,8 @@ public class Questcontroller : MonoBehaviour
 
         for (int i = 0; i < quests.Length; i++)
         {
-            quests[i].EventQuestComplete += OnQuestComplete;
-            quests[i].EventTaskComplete += TaskComplete;
+           // quests[i].EventQuestComplete += OnQuestComplete;
+          //  quests[i].EventTaskComplete += TaskComplete;
         }
     }
 
@@ -45,8 +45,8 @@ public class Questcontroller : MonoBehaviour
     {
         for (int i = 0; i < quests.Length; i++)
         {
-            quests[i].EventQuestComplete -= OnQuestComplete;
-            quests[i].EventTaskComplete -= TaskComplete;
+          //  quests[i].EventQuestComplete -= OnQuestComplete;
+          //  quests[i].EventTaskComplete -= TaskComplete;
         }
     }
 
@@ -68,7 +68,7 @@ public class Questcontroller : MonoBehaviour
             }
         }
         
-        CheckIfQuestComplete();
+       // CheckIfQuestComplete();
         EventOnTaskCompleted?.Invoke(token);
     }
     
@@ -93,7 +93,7 @@ public class Questcontroller : MonoBehaviour
         {
             for (int i = 0; i < quests.Length; i++)
             {
-                quests[i].reset = true;
+            //    quests[i].reset = true;
             }
             this.enabled = false;
             this.enabled = true;
@@ -115,7 +115,7 @@ public class Questcontroller : MonoBehaviour
             {
                 if (t.Token == token)
                 {
-                    t.TaskComplete();
+                  //  t.TaskComplete();
                 }
             }
         }

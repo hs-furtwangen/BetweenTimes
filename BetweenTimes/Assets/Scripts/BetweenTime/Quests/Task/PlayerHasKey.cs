@@ -11,7 +11,7 @@ public class PlayerHasKey : Task
     {
         if (key == playerHand)
         {
-            TaskComplete();
+          //  TaskComplete();
         }
     }
 
