@@ -23,13 +23,6 @@ namespace StarterAssets.BetweenTime.Inventory.Network
 
             CmdAddItem(itemToAdd);
         }
-
-        [Command]
-        public void CmdAddItem(Item itemToAdd)
-        {
-            ServerAddItemLogic(itemToAdd);
-        }
-        
         [Server]
         public void ServerAddItemLogic(Item itemToAdd)
         {
@@ -45,7 +38,14 @@ namespace StarterAssets.BetweenTime.Inventory.Network
 
             RpcAddItem(true, itemToAdd);
         }
-
+        
+        #region Add Item Com
+        [Command]
+        public void CmdAddItem(Item itemToAdd)
+        {
+            ServerAddItemLogic(itemToAdd);
+        }
+        
         [ClientRpc]
         public void RpcAddItem(bool success, Item itemToAdd)
         {
@@ -58,7 +58,8 @@ namespace StarterAssets.BetweenTime.Inventory.Network
             else
                 DebugColored.Log(true, Color.yellow, "[Rpc]", this, "Failed to add Item " + itemToAdd.ToString());
         }
-
+        #endregion
+        
         [Client]
         public void RemoveItem(Item itemToRemove)
         {
