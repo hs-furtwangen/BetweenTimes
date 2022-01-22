@@ -171,7 +171,7 @@ MonoBehaviour:
   _firstPersonController: {fileID: 7009772010392139040}
   _playerInput: {fileID: 7009772010392139051}
   _btPlayerInput: {fileID: 3756380110640459971}
-  showDebug: 1
+  showDebug: 0
   debugColor: {r: 0.78139806, g: 1, b: 0.4575472, a: 1}
 --- !u!114 &3756380110640459971
 MonoBehaviour:
@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996e85f719b744cb970a23424376082a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventSystem: {fileID: 0}
   EventOnFireDown:
     m_PersistentCalls:
       m_Calls: []
@@ -210,7 +211,7 @@ MonoBehaviour:
   syncInterval: 0.1
   playerController: {fileID: 3547939953304460268}
   inputModule: {fileID: 3756380110640459971}
-  showDebug: 1
+  showDebug: 0
   debugColor: {r: 0.7803922, g: 1, b: 0.45882356, a: 1}
 --- !u!1 &3436718982903876732
 GameObject:
