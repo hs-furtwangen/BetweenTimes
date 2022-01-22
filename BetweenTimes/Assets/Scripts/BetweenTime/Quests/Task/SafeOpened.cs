@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SafeOpened : Tasks
+public class SafeOpened : Task
 {
     public int safenum;
     private int pin;

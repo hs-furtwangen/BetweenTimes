@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHasKey : Tasks
+public class PlayerHasKey : Task
 {
     public string key = "Key";
     public string playerHand;
