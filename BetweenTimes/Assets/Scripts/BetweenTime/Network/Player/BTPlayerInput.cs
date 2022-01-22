@@ -34,18 +34,18 @@ namespace BetweenTime.Network.Player
             if (!_started)
                 return;
             
-            // if (Input.GetButtonDown("Fire1"))
-            // {
-            //     EventOnFireDown?.Invoke();
-            // }
-            // if (Input.GetButton("Fire1"))
-            // {
-            //     EventOnFire?.Invoke();
-            // }
-            // if (Input.GetButtonUp("Fire1"))
-            // {
-            //     EventOnFireUp?.Invoke();
-            // }
+            if (Input.GetButtonDown("Fire1"))
+            {
+                EventOnFireDown?.Invoke();
+            }
+            if (Input.GetButton("Fire1"))
+            {
+                EventOnFire?.Invoke();
+            }
+            if (Input.GetButtonUp("Fire1"))
+            {
+                EventOnFireUp?.Invoke();
+            }
         }
     }
 }
