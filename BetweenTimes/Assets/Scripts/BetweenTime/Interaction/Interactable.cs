@@ -8,6 +8,8 @@ public abstract class Interactable : MonoBehaviour
     public UnityEvent EventHoverEnter;
     public UnityEvent EventHoverExit;
     public UnityEvent EventInteract;
+    protected bool isCollectable = false;
+    public bool IsCollectable { get => isCollectable; }
 
     void Awake()
     {
