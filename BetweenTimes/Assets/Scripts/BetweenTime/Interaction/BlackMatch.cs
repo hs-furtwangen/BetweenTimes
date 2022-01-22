@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class BlackMatch : Collectable
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        EventUse.AddListener(Throw);
+        Debug.Log("Add Throw");
+        EventUse.AddListener(ThrowMatch);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        
+        Debug.Log("Remove Throw");
+        EventUse.RemoveListener(ThrowMatch);
     }
 
-    void Throw(Interactor interactor)
+    void ThrowMatch(Interactor interactor)
     {
-
+        Debug.Log("Throw");
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.MovePosition(interactor.transform.position + interactor.transform.forward);
+        rigidbody.AddForce(interactor.transform.forward + interactor.transform.up);
     }
 }
