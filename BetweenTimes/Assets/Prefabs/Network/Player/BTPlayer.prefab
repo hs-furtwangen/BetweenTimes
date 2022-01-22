@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996e85f719b744cb970a23424376082a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventSystem: {fileID: 0}
   EventOnFireDown:
     m_PersistentCalls:
       m_Calls: []
