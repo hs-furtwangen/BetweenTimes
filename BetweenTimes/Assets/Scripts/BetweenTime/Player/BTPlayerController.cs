@@ -1,5 +1,6 @@
 ﻿using System;
 using BetweenTime.Controlling;
+using BetweenTime.Player;
 using DebugHelper;
 using Mirror;
 using StarterAssets;
@@ -32,10 +33,8 @@ namespace BetweenTime.Network.Player
 
         [Header("References")] 
         private GameManager _manager;
-        private BTPlayerSetup _setupModule;
-        [SerializeField] private CharacterController _characterController;
-        [SerializeField] private FirstPersonController _firstPersonController;
-        [SerializeField] private PlayerInput _playerInput;
+        private BTPlayerSetup _controllerSetupModule;
+        BTPlayerMovement _btPlayerMovement; 
 
         public BTPlayerInput BtPlayerInput => _btPlayerInput;
 
@@ -96,25 +95,25 @@ namespace BetweenTime.Network.Player
             }
             
             //manage player setup using the setupModule
-            if (_setupModule == null)
-                _setupModule = GetComponent<BTPlayerSetup>();
+            if (_controllerSetupModule == null)
+                _controllerSetupModule = GetComponent<BTPlayerSetup>();
 
-            if (_setupModule.FinishedSetup)
+            if (_controllerSetupModule.FinishedSetup)
             {
                 OnSetupModuleFinished();
             }
             else
-                _setupModule.OnFinishedSetup.AddListener(OnSetupModuleFinished);
+                _controllerSetupModule.OnFinishedSetupLocalPlayer.AddListener(OnSetupModuleFinished);
         }
 
 
         /// <summary>
-        /// Gets called after the <see cref="BTPlayerSetup"/>-Module finished its setup.
+        /// Gets called after the <see cref="BTPlayerControllerSetup"/>-Module finished its setup.
         /// It should finish this script setup and then start the player.
         /// </summary>
         public void OnSetupModuleFinished()
         {
-            _setupModule.OnFinishedSetup.RemoveListener(OnSetupModuleFinished);
+            _controllerSetupModule.OnFinishedSetupLocalPlayer.RemoveListener(OnSetupModuleFinished);
             
             //check roll
             
@@ -124,7 +123,7 @@ namespace BetweenTime.Network.Player
         }
 
         /// <summary>
-        /// Is started after the <see cref="BTPlayerSetup"/>-Module and the <see cref="GameManager"/> finished their setup.
+        /// Is started after the <see cref="BTPlayerControllerSetup"/>-Module and the <see cref="GameManager"/> finished their setup.
         /// </summary>
         public void StartPlayer()
         {
@@ -139,15 +138,15 @@ namespace BetweenTime.Network.Player
         #region Movement
         private void EnableMovement()
         {
-            _characterController.enabled = true;
-            _firstPersonController.enabled = true;
-            _playerInput.enabled = true;
+           if(_btPlayerMovement == null)  _btPlayerMovement = GetComponent<BTPlayerMovement>();
+               
+           if(_btPlayerMovement != null) _btPlayerMovement.enabled = true;
         }
         private void DisableMovement()
         {
-            _characterController.enabled = false;
-            _firstPersonController.enabled = false;
-            _playerInput.enabled = false;
+            if(_btPlayerMovement == null)  _btPlayerMovement = GetComponent<BTPlayerMovement>();
+               
+            if(_btPlayerMovement != null) _btPlayerMovement.enabled = false;
         }
         #endregion Movement
         
@@ -156,7 +155,7 @@ namespace BetweenTime.Network.Player
         {
             _gameManagerReady = true;
             
-            if(_setupModule.FinishedSetup)
+            if(_controllerSetupModule.FinishedSetup)
                 StartPlayer();
         }
 

@@ -15,7 +15,6 @@ namespace BetweenTime.Network.Player
     /// </summary>
     public class BTPlayerInput : MonoBehaviour
     {
-        [SerializeField] private EventSystem _eventSystem;
         [SerializeField] private bool _started;
         
         #region Events
