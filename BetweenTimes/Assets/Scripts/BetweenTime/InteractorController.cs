@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractorControl : MonoBehaviour
+public class InteractorController : MonoBehaviour
 {    
     void Awake()
     {
-        if (gameObject.GetComponent<Camera>() != null) gameObject.AddComponent<Interactor>();
+        if (GetComponentInChildren<Camera>() != null) gameObject.AddComponent<Interactor>();
     }
 
     // Start is called before the first frame update

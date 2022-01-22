@@ -22,10 +22,8 @@ namespace BetweenTime.Network.Player
         public UnityEvent EventOnFireDown;
         public UnityEvent EventOnFire;
         public UnityEvent EventOnFireUp;
-        public UnityEvent<float> EventOnHorizontal = new UnityEvent<float>();
-        public UnityEvent<float> EventOnVertical = new UnityEvent<float>();
-        public UnityEvent<float> EventOnMouseX = new UnityEvent<float>();
-        public UnityEvent<float> EventOnMouseY = new UnityEvent<float>();
+        public UnityEvent<float, float> EventOnAxis = new UnityEvent<float, float>();
+        public UnityEvent<float, float> EventOnMouse = new UnityEvent<float, float>();
         #endregion
 
         public void StartInputObservation()
@@ -50,21 +48,13 @@ namespace BetweenTime.Network.Player
             {
                 EventOnFireUp?.Invoke();
             }
-            if (Input.GetAxis("Horizontal") != 0)
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
-                EventOnHorizontal.Invoke(Input.GetAxis("Horizontal"));
+                EventOnAxis.Invoke(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
-            if (Input.GetAxis("Vertical") != 0)
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
-                EventOnVertical.Invoke(Input.GetAxis("Vertical"));
-            }
-            if (Input.GetAxis("Mouse X") != 0)
-            {
-                EventOnHorizontal.Invoke(Input.GetAxis("Mouse X"));
-            }
-            if (Input.GetAxis("Mouse Y") != 0)
-            {
-                EventOnVertical.Invoke(Input.GetAxis("Mouse Y"));
+                EventOnMouse.Invoke(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
         }
     }
