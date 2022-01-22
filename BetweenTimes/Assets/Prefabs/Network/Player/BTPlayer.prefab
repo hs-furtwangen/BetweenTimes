@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3547939953304460268}
   - component: {fileID: 3756380110640459971}
   - component: {fileID: -8105081864032159142}
+  - component: {fileID: 8258739505566986595}
   m_Layer: 0
   m_Name: BTPlayer
   m_TagString: Untagged
@@ -171,7 +172,7 @@ MonoBehaviour:
   _firstPersonController: {fileID: 7009772010392139040}
   _playerInput: {fileID: 7009772010392139051}
   _btPlayerInput: {fileID: 3756380110640459971}
-  showDebug: 1
+  showDebug: 0
   debugColor: {r: 0.78139806, g: 1, b: 0.4575472, a: 1}
 --- !u!114 &3756380110640459971
 MonoBehaviour:
@@ -211,6 +212,24 @@ MonoBehaviour:
   syncInterval: 0.1
   playerController: {fileID: 3547939953304460268}
   inputModule: {fileID: 3756380110640459971}
+  showDebug: 0
+  debugColor: {r: 0.7803922, g: 1, b: 0.45882356, a: 1}
+--- !u!114 &8258739505566986595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394193452182896863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8a99a5bd104f31b6213ccd3e55a5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  _inventory: []
+  maxItems: 1
   showDebug: 1
   debugColor: {r: 0.7803922, g: 1, b: 0.45882356, a: 1}
 --- !u!1 &3436718982903876732
