@@ -18,6 +18,16 @@ namespace BetweenTime.Network.Player
     /// </summary>
     public class BTPlayerController : NetworkBehaviour
     {
+        #region Signleton
+        private static BTPlayerController instance;
+
+        public static BTPlayerController GetLocalPlayer()
+        {
+            return instance;
+        }
+
+        #endregion
+        
         [Header("Player")] private BTPlayerData data;
 
         [Header("References")] 
@@ -27,12 +37,29 @@ namespace BetweenTime.Network.Player
         [SerializeField] private FirstPersonController _firstPersonController;
         [SerializeField] private PlayerInput _playerInput;
 
+        public BTPlayerInput BtPlayerInput => _btPlayerInput;
+
+        [SerializeField] private BTPlayerInput _btPlayerInput;
+
         [Header("Debug")] [SerializeField] private bool showDebug;
         [SerializeField] private Color debugColor;
         
         [Header("Flags")]
         [Tooltip("Flag for GameManager finished setup and started the Session")]
         private bool _gameManagerReady;
+
+        private void Awake()
+        {
+            if (!isLocalPlayer)
+                return;
+
+            if (_btPlayerInput == null) _btPlayerInput.GetComponent<BTPlayerInput>(); 
+            
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(this);
+        }
 
         private void Start()
         {
@@ -104,6 +131,9 @@ namespace BetweenTime.Network.Player
             //do stuff like enable controls or blend in
 
             EnableMovement();
+
+            if (_btPlayerInput == null) _btPlayerInput = GetComponent<BTPlayerInput>();
+            if (_btPlayerInput != null) _btPlayerInput.StartInputObservation();
         }
 
         #region Movement

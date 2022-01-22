@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5615447407674251034}
   - component: {fileID: 158886599687869980}
   - component: {fileID: 3547939953304460268}
+  - component: {fileID: 3756380110640459971}
+  - component: {fileID: -8105081864032159142}
   m_Layer: 0
   m_Name: BTPlayer
   m_TagString: Untagged
@@ -168,8 +170,48 @@ MonoBehaviour:
   _characterController: {fileID: 7009772010392139053}
   _firstPersonController: {fileID: 7009772010392139040}
   _playerInput: {fileID: 7009772010392139051}
+  _btPlayerInput: {fileID: 3756380110640459971}
   showDebug: 1
   debugColor: {r: 0.78139806, g: 1, b: 0.4575472, a: 1}
+--- !u!114 &3756380110640459971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394193452182896863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996e85f719b744cb970a23424376082a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventOnFireDown:
+    m_PersistentCalls:
+      m_Calls: []
+  EventOnFire:
+    m_PersistentCalls:
+      m_Calls: []
+  EventOnFireUp:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-8105081864032159142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394193452182896863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c41879cec27ec84c868f6cd3c29d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerController: {fileID: 3547939953304460268}
+  inputModule: {fileID: 3756380110640459971}
+  showDebug: 1
+  debugColor: {r: 0.7803922, g: 1, b: 0.45882356, a: 1}
 --- !u!1 &3436718982903876732
 GameObject:
   m_ObjectHideFlags: 0

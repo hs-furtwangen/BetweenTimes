@@ -49,6 +49,7 @@ namespace BetweenTime.Controlling
         public UnityEvent<GameData> OnGameDataSet = new UnityEvent<GameData>();
         public UnityEvent OnGameStart;
         public UnityEvent OnGameEnded;
+        public UnityEvent OnGameReset;
         #endregion
 
         private Coroutine c_lifeTime;
@@ -95,7 +96,20 @@ namespace BetweenTime.Controlling
             OnGameEnded?.Invoke();
             RpcOnEnd();
         }
-        
+
+        [ContextMenu("Reset Lifecycle")]
+        [Server]
+        public void ResetLifecycle()
+        {
+            if(c_lifeTime != null)
+                StopCoroutine(c_lifeTime);
+            
+            DebugColored.Log(showDebug, debugColor, "[Server]",this,"Reset Lifecycle");
+            sessiontime = totalTime;
+            
+            _started = false;
+            OnGameReset?.Invoke();
+        }
         IEnumerator LifetimeCoroutine()
         {
             while (sessiontime > 0)
@@ -127,6 +141,12 @@ namespace BetweenTime.Controlling
         {
             ClientOnEnd();
         }
+        
+        [ClientRpc]
+        public void RpcOnReset()
+        {
+            ClientOnReset();
+        }
         #endregion Com Wrapper
         #endregion
         
@@ -155,7 +175,14 @@ namespace BetweenTime.Controlling
             _started = false;
             OnGameEnded?.Invoke();
         }
-
+        
+        [Client]
+        public void ClientOnReset()
+        {
+            DebugColored.Log(showDebug, debugColor, "[Client]",this,"OnReset");
+            _started = false;
+            OnGameReset?.Invoke();
+        }
         #endregion Client Logic
         
 
