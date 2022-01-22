@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace BetweenTime.Network.Player
 {
-    public class BTPlayerSetup : NetworkBehaviour
+    public class BTPlayerControllerSetup : NetworkBehaviour
     {
         [Header("Prefabs")] [SerializeField] private GameObject cameraPrefab;
         [SerializeField] private GameObject virtualCameraPrefab;
