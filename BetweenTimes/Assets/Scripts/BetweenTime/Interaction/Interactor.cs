@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BetweenTime.Network.Player;
 using DebugHelper;
+using BetweenTime.Player;
 
 public class Interactor : MonoBehaviour
 {
@@ -11,15 +12,16 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Color debugColor;
 
     private Camera camera;
+    private BTPlayerMovement playerMovement;
     private Interactable hovered;
-    private Interactable collected;
+    private Collectable collected;
 
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         camera = GetComponentInChildren<Camera>();
-        var playerInput = GetComponent<BTPlayerInput>();
+        playerMovement = GetComponent<BTPlayerMovement>();
+        BTPlayerInput playerInput = GetComponent<BTPlayerInput>();
         playerInput.EventOnFireDown.AddListener(OnFire);
     }
 
@@ -30,7 +32,7 @@ public class Interactor : MonoBehaviour
         if (Physics.Raycast(transform.position, camera.transform.forward, out hit, 2))
         {
             DebugColored.Log(showDebug, debugColor, this, "Did hit");
-            var newHovered = hit.rigidbody.GetComponent<Interactable>();
+            Interactable newHovered = hit.collider.GetComponent<Interactable>();
             if (newHovered != hovered)
             {
                 hovered?.EventHoverExit.Invoke();
@@ -46,17 +48,32 @@ public class Interactor : MonoBehaviour
         }
     }
 
+    public void Focus(Interactable interactable)
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        camera.transform.LookAt(interactable.transform);
+        playerMovement.enabled = false;
+    }
+
+    public void LoseFocus()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        playerMovement.enabled = true;
+    }
+
     void OnFire()
     {
         if (hovered)
         {
-            hovered.EventInteract.Invoke();
-            if (hovered.IsCollectable)
+            hovered.EventInteract.Invoke(this);
+            if (hovered is Collectable)
             {
                 if (collected == null)
                 {
-                    hovered.gameObject.SetActive(false);
-                    collected = hovered;
+                    collected.gameObject.SetActive(false);
+                    collected = hovered as Collectable;
                 }
                 else DebugColored.Log(showDebug, debugColor, this, "Inventory full!");
             }
@@ -66,7 +83,7 @@ public class Interactor : MonoBehaviour
             if (collected)
             {
                 collected.gameObject.SetActive(true);
-                collected.GetComponent<Rigidbody>().MovePosition(transform.position + transform.forward);
+                collected.EventUse.Invoke(this);
                 collected = null;
             }
         }

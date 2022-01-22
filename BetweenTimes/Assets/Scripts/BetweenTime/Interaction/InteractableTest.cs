@@ -7,7 +7,6 @@ public class InteractableTest : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        isCollectable = true;
         EventHoverEnter.AddListener(() =>
         {
             Debug.Log("Hover Enter");
@@ -16,7 +15,7 @@ public class InteractableTest : Interactable
         {
             Debug.Log("Hover Exit");
         });
-        EventInteract.AddListener(() =>
+        EventInteract.AddListener(interactor =>
         {
             Debug.Log("Interact");
         });
