@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class RotateInput : MonoBehaviour
 {
-    float rotationSpeed = 1f;
+    private Vector3 mousePosition;
+
+    float rSpeed = 1f; // Scale. Speed of the movement
+    Vector3 pointingTarget;
 
     private void Awake()
     {
-        Physics.queriesHitTriggers = true;
         Debug.Log("yup");
     }
 
     private void OnMouseDrag()
     {
-        Debug.Log("testing");
+
+        Vector3 mouseToWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition - new Vector3(0, 0, Camera.main.transform.position.z));
+        mouseToWorld.z = 0f;
+        Vector3 difference = mouseToWorld - transform.position;
+        difference.Normalize();
+
+        float angle = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, angle - 90);
     }
 }
