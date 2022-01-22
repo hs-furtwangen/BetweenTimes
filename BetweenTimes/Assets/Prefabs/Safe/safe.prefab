@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4650318267446310772}
   - component: {fileID: 6661138369944092779}
   - component: {fileID: 6937016815364568342}
+  - component: {fileID: 8083511014604532919}
   m_Layer: 0
   m_Name: Safe_Input
   m_TagString: Untagged
@@ -82,6 +83,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8083511014604532919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4391322085518143485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624d21f7c538e0d49bb0237941e31ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6120125458876532577
 GameObject:
   m_ObjectHideFlags: 0
