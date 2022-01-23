@@ -13,6 +13,7 @@ namespace BetweenTime.Player
         public Camera Camera { get => CameraMovement.Camera; }
         [SerializeField] Transform playerTransform;
         [SerializeField] Transform faceOrientationTransform;
+        [SerializeField] CharacterController characterController;
         readonly float sqrt2 = Mathf.Sqrt(2f);
 
         public void LookAt(Transform transform)
@@ -57,7 +58,7 @@ namespace BetweenTime.Player
                 x /= sqrt2;
                 y /= sqrt2;
             }
-            playerTransform.Translate((playerTransform.forward * y + playerTransform.right * x) * Time.deltaTime * 2f);
+            characterController.Move((playerTransform.forward * y + playerTransform.right * x) * Time.deltaTime * 2f);
         }
 
         void Look(float x, float y)
