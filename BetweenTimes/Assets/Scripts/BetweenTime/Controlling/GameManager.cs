@@ -2,29 +2,45 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using BetweenTime.Network.Player;
 using DebugHelper;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.PlayerLoop;
+using Random = System.Random;
 
 namespace BetweenTime.Controlling
 {
-    public struct GameData
+    public struct GamePlayerData
     {
         public bool isGhost;
+        public bool isReady;
+
+        public GamePlayerData(bool isGhost, bool isReady)
+        {
+            this.isGhost = isGhost;
+            this.isReady = isReady;
+        }
     }
 
     public class GameManager : NetworkBehaviour
     {
+        [Header("Player")]
+        [SerializeField] private int playerAmountToStart = 2;
+        [SerializeField] private Dictionary<GameObject, GamePlayerData> playerIsReady = new Dictionary<GameObject, GamePlayerData>();
+        private bool allConnected;
+        [SerializeField] private Transform spawnPositionGhost;
+        [SerializeField] private Transform spawnPositionHuman;
+        
         [Header("Lifecycle")] 
         [SyncVar] public float sessiontime;
         [SerializeField] private float totalTime = 3600f;
         
         [Header("Data")]
-        private GameData _data;
+        private GamePlayerData _playerData;
         private bool _paused;
-        
-        [SerializeField] private List<GameObject> players = new List<GameObject>();
+
 
         [Header("Flags")] private bool _started;
 
@@ -46,7 +62,7 @@ namespace BetweenTime.Controlling
         #endregion Singleton
 
         #region Events
-        public UnityEvent<GameData> OnGameDataSet = new UnityEvent<GameData>();
+        public UnityEvent<GamePlayerData> OnGameDataSet = new UnityEvent<GamePlayerData>();
         public UnityEvent OnGameStart;
         public UnityEvent OnGameEnded;
         public UnityEvent OnGameReset;
@@ -93,6 +109,10 @@ namespace BetweenTime.Controlling
         {
             DebugColored.Log(showDebug, debugColor, "[Server]",this,"End Lifecycle");
             _started = false;
+            
+            if(c_lifeTime!= null)
+                StopCoroutine(c_lifeTime);
+            
             OnGameEnded?.Invoke();
             RpcOnEnd();
         }
@@ -108,8 +128,60 @@ namespace BetweenTime.Controlling
             sessiontime = totalTime;
             
             _started = false;
+
+            ResetPlayerDictionary();
+
+            ResetPosition();
+            
+            RpcOnReset();
+
             OnGameReset?.Invoke();
         }
+
+        [Server]
+        private void ResetPosition()
+        {
+            DebugColored.Log(showDebug, debugColor, "[Server]",this,"Reset Positions");
+            foreach (var player in playerIsReady)
+            {
+                NetworkConnection con = player.Key.GetComponent<NetworkIdentity>().connectionToClient;
+                if (player.Value.isGhost)
+                {
+                    DebugColored.Log(showDebug, debugColor, "[Server]",this,"Player is Ghost, set to "+spawnPositionGhost.position);
+                    TargetSetPlayerSpawnPosition(con, player.Key, spawnPositionGhost.position, spawnPositionGhost.rotation);
+                }
+                else
+                {
+                    DebugColored.Log(showDebug, debugColor, "[Server]",this,"Player is Human, set to "+spawnPositionHuman.position);
+                    TargetSetPlayerSpawnPosition(con, player.Key, spawnPositionHuman.position, spawnPositionHuman.rotation);
+                }
+            }
+        }
+
+        [TargetRpc]
+        public void TargetSetPlayerSpawnPosition(NetworkConnection con, GameObject player, Vector3 position, Quaternion rotation)
+        {
+            DebugColored.Log(showDebug, debugColor, "[ClientTarget]",this,"SetPosition "+position);
+            player.transform.position = position;
+            player.transform.rotation = rotation;
+        }
+
+        private void ResetPlayerDictionary()
+        {
+            DebugColored.Log(showDebug, debugColor, "[Server]",this,"Reset Player States");
+            List<GameObject> players = new List<GameObject>();
+
+            foreach (var player in playerIsReady)
+            {
+                players.Add(player.Key);
+            }
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                playerIsReady[players[i]] = new GamePlayerData(!playerIsReady[players[i]].isGhost,false);
+            }
+        }
+
         IEnumerator LifetimeCoroutine()
         {
             while (sessiontime > 0)
@@ -125,9 +197,9 @@ namespace BetweenTime.Controlling
 
         #region Com Wrapper
         [ClientRpc]
-        public void RpcSetGameData(GameData data)
+        public void RpcSetGameData(GamePlayerData playerData)
         {
-           ClientSetGameData(data);
+           ClientSetGameData(playerData);
         }
         
         [ClientRpc]
@@ -152,11 +224,11 @@ namespace BetweenTime.Controlling
         
         #region Client Logic
         [Client]
-        public void ClientSetGameData(GameData data)
+        public void ClientSetGameData(GamePlayerData playerData)
         {
             DebugColored.Log(showDebug, debugColor, "[Client]",this,"OnSetGameData");
-            _data = data;
-            OnGameDataSet?.Invoke(_data);
+            _playerData = playerData;
+            OnGameDataSet?.Invoke(_playerData);
             
         }
         
@@ -185,6 +257,63 @@ namespace BetweenTime.Controlling
         }
         #endregion Client Logic
         
+        
+        #region GameCommunication
 
+        [Server]
+        public bool AssignAtGameManager(GameObject netObjectPlayer)
+        {
+            if (playerIsReady.ContainsKey(netObjectPlayer))
+            {
+                DebugColored.Log(showDebug,debugColor,this,"Player "+netObjectPlayer+" already regsitered.");
+                return false;
+            }
+
+            GamePlayerData playerData;
+            if (playerIsReady.Count == 0)
+            {
+                playerData = new GamePlayerData(true, false);
+            }else
+                playerData = new GamePlayerData(false, false);
+
+            playerIsReady.Add(netObjectPlayer,playerData);
+
+            NetworkConnection con = netObjectPlayer.GetComponent<NetworkIdentity>().connectionToClient;
+            if(playerIsReady[netObjectPlayer].isGhost)
+            TargetSetPlayerSpawnPosition(con, netObjectPlayer, spawnPositionGhost.position, 
+                spawnPositionGhost.rotation);
+            else
+                TargetSetPlayerSpawnPosition(con, netObjectPlayer, spawnPositionHuman.position, 
+                    spawnPositionHuman.rotation);
+
+            if (playerIsReady.Count == playerAmountToStart)
+                allConnected = true;
+            
+            return true;
+        }
+
+        [Server]
+        public void SetPlayerReady(GameObject playerObj, bool isReady)
+        {
+            if (playerIsReady.ContainsKey(playerObj))
+                playerIsReady[playerObj] = new GamePlayerData(playerIsReady[playerObj].isGhost,isReady);
+
+            if (allConnected)
+                if(CheckIfAllReady())
+                    StartLifecycle();
+        }
+
+        private bool CheckIfAllReady()
+        {
+            foreach (var player in playerIsReady)
+            {
+                if (!player.Value.isReady)
+                    return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
+
 }

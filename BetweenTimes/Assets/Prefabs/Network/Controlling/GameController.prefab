@@ -47,7 +47,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 71a9450100c255547bf4ff0e88bed580
   hasSpawned: 0
 --- !u!114 &5390510260573795285
 MonoBehaviour:
@@ -61,3 +61,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18499b6844b05e34b98b5cc557cc93c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerAmountToStart: 1
+  spawnPositionGhost: {fileID: 0}
+  spawnPositionHuman: {fileID: 0}
+  sessiontime: 0
+  totalTime: 3600
+  showDebug: 1
+  debugColor: {r: 0.9160466, g: 0, b: 1, a: 1}
+  OnGameDataSet:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameReset:
+    m_PersistentCalls:
+      m_Calls: []

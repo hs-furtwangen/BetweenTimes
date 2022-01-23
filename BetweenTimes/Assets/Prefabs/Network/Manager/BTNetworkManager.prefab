@@ -50,7 +50,7 @@ MonoBehaviour:
   autoStartServerBuild: 1
   serverTickRate: 30
   offlineScene: 
-  onlineScene: 
+  onlineScene: Assets/Scenes/OnlineGameRoom.unity
   transport: {fileID: 1494256039}
   networkAddress: localhost
   maxConnections: 100
