@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  playerAmountToStart: 1
+  playerAmountToStart: 2
   spawnPositionGhost: {fileID: 0}
   spawnPositionHuman: {fileID: 0}
   sessiontime: 0

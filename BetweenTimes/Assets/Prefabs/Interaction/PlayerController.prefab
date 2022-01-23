@@ -772,7 +772,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996e85f719b744cb970a23424376082a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isLocalPlayer: 0
+  _isDisabled: 0
   EventFireDown:
     m_PersistentCalls:
       m_Calls: []
@@ -844,6 +844,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   EventFireUp:
+    m_PersistentCalls:
+      m_Calls: []
+  EventRightDown:
+    m_PersistentCalls:
+      m_Calls: []
+  EventRight:
+    m_PersistentCalls:
+      m_Calls: []
+  EventRightUp:
     m_PersistentCalls:
       m_Calls: []
   EventAxis:
