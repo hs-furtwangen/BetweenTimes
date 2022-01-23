@@ -14,9 +14,8 @@ public class Interactor : MonoBehaviour
     private Camera camera;
     private BTPlayerMovement playerMovement;
     private Interactable hovered;
-    private Collectable collected;
+    public Collectable Collected;
 
-    // Start is called before the first frame update
     void Start()
     {
         camera = GetComponentInChildren<Camera>();
@@ -25,7 +24,6 @@ public class Interactor : MonoBehaviour
         playerInput.EventOnFireDown.AddListener(OnFire);
     }
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
@@ -70,21 +68,21 @@ public class Interactor : MonoBehaviour
             hovered.EventInteract.Invoke(this);
             if (hovered is Collectable)
             {
-                if (collected == null)
+                if (Collected == null)
                 {
-                    collected.gameObject.SetActive(false);
-                    collected = hovered as Collectable;
+                    Collected = hovered as Collectable;
+                    Collected.gameObject.SetActive(false);
                 }
                 else DebugColored.Log(showDebug, debugColor, this, "Inventory full!");
             }
         }
         else
         {
-            if (collected)
+            if (Collected)
             {
-                collected.gameObject.SetActive(true);
-                collected.EventUse.Invoke(this);
-                collected = null;
+                Collected.gameObject.SetActive(true);
+                Collected.EventUse.Invoke(this);
+                Collected = null;
             }
         }
     }

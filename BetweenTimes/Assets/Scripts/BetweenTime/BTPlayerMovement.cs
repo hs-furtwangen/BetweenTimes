@@ -11,7 +11,6 @@ namespace BetweenTime.Player
         private Camera camera;
         private BTPlayerInput playerInput;
 
-        // Start is called before the first frame update
         void Start()
         {
             Cursor.visible = false;
@@ -28,12 +27,6 @@ namespace BetweenTime.Player
         void OnDisable() {
             playerInput.EventOnAxis.RemoveListener(Move);
             playerInput.EventOnMouse.RemoveListener(Look);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
         }
 
         void Move(float x, float y)

@@ -15,7 +15,7 @@ namespace BetweenTime.Controlling.Helper
 
         #region Events
 
-        public UnityEvent<GameData> EventOnGameDataSet = new UnityEvent<GameData>();
+        public UnityEvent<GamePlayerData> EventOnGameDataSet = new UnityEvent<GamePlayerData>();
         public UnityEvent EventOnGameStart;
         public UnityEvent EventOnGameEnded;
 
@@ -76,9 +76,9 @@ namespace BetweenTime.Controlling.Helper
         }
         #endregion Registration
         
-        public virtual void OnGameDataSet(GameData data)
+        public virtual void OnGameDataSet(GamePlayerData playerData)
         {
-            EventOnGameDataSet?.Invoke(data);
+            EventOnGameDataSet?.Invoke(playerData);
         }
         
         public virtual void OnGameStart()

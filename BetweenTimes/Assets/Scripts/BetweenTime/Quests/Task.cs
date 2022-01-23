@@ -7,7 +7,7 @@ using UnityEngine;
 public class Task
 {
     [SerializeField] private string token;
-    private bool complete = false;
+    [SerializeField] private bool complete = false;
 
     public bool Complete
     {

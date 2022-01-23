@@ -34,7 +34,7 @@ namespace BetweenTime.Network.Player
         [Header("References")] 
         private GameManager _manager;
         private BTPlayerSetup _controllerSetupModule;
-        BTPlayerMovement _btPlayerMovement; 
+        [SerializeField] BTPlayerMovement _btPlayerMovement; 
 
         public BTPlayerInput BtPlayerInput => _btPlayerInput;
 
@@ -75,6 +75,8 @@ namespace BetweenTime.Network.Player
             //movement should only work, if the game has started
             DisableMovement();
 
+            if (_btPlayerInput != null) _btPlayerInput.StartInputObservation();
+            
             //set state of GameManager --> has already started --> start player
             if (_manager == null)
             {
@@ -132,7 +134,7 @@ namespace BetweenTime.Network.Player
             EnableMovement();
 
             if (_btPlayerInput == null) _btPlayerInput = GetComponent<BTPlayerInput>();
-            if (_btPlayerInput != null) _btPlayerInput.StartInputObservation();
+
         }
 
         #region Movement
@@ -161,7 +163,7 @@ namespace BetweenTime.Network.Player
 
         public void OnGameEnd()
         {
-            
+            DisableMovement();
         }
         #endregion Manager Callbacks
     }

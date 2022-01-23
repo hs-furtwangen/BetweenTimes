@@ -48,7 +48,8 @@ namespace BetweenTime.Network.Player
             CapsuleCollider collider = GetComponent<CapsuleCollider>();
             if(collider != null) Destroy(collider);
             
-            _btPlayerMovement = gameObject.AddComponent<BTPlayerMovement>();
+            if(_btPlayerMovement == null) _btPlayerMovement = gameObject.AddComponent<BTPlayerMovement>();
+            _btPlayerMovement.enabled = false;
             _finishedSetup = true;
             OnFinishedSetupLocalPlayer?.Invoke();
         }

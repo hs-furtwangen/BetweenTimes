@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InteractableTest : Interactable
 {
-    // Start is called before the first frame update
     void Start()
     {
         EventHoverEnter.AddListener(() =>
@@ -19,11 +18,5 @@ public class InteractableTest : Interactable
         {
             Debug.Log("Interact");
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

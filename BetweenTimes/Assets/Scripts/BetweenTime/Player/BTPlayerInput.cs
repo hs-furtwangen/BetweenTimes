@@ -15,7 +15,7 @@ namespace BetweenTime.Network.Player
     /// </summary>
     public class BTPlayerInput : MonoBehaviour
     {
-        [SerializeField] private bool _started;
+        [SerializeField] private bool _isLocalPlayer;
         
         #region Events
         public UnityEvent EventOnFireDown;
@@ -27,12 +27,11 @@ namespace BetweenTime.Network.Player
 
         public void StartInputObservation()
         {
-            _started = true;
+            _isLocalPlayer = true;
         }
-
         public void Update()
         {
-            if (!_started)
+            if (!_isLocalPlayer)
                 return;
             
             if (Input.GetButtonDown("Fire1"))

@@ -7,12 +7,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-
-public class Quest : MonoBehaviour
+[Serializable]
+public class Quest
 {
     public Task[] tasks;
     [SerializeField] private string token;
-    private bool _complete;
+    [SerializeField] private bool _complete;
     private Questcontroller _questcontroller;
     public bool Complete
     {
@@ -46,9 +46,11 @@ public class Quest : MonoBehaviour
     
     public bool MarkTaskAsComplete(string token)
     {
+        DebugColored.Log(true, Color.magenta, "[Quest]", "Try to mark token "+token);
+
         if (!ContainsTask(token))
         {
-            DebugColored.Log(true, Color.magenta, this, "No task with token " + token + " found in quest with token "+this.token);
+            DebugColored.Log(true, Color.magenta, "[Quest]", "No task with token " + token + " found in quest with token "+this.token);
             return false;
         }
         
@@ -56,30 +58,56 @@ public class Quest : MonoBehaviour
         if (!requested.Complete)
         {
             requested.Complete = true;
-            DebugColored.Log(true, Color.magenta, this, "Successfully marked " + token + " in quest with token "+this.token);
-            
+            DebugColored.Log(true, Color.magenta, "[Quest]", "Successfully marked " + token + " in quest with token "+this.token);
+            CheckIfQuestComplete();
             return true;
         }
         else
         {
-            DebugColored.Log(true, Color.magenta, this, "Task " + token + " already complete");
+            DebugColored.Log(true, Color.magenta, "[Quest]", "Task " + token + " already complete");
             return false;
         }
     }
 
-    private void CheckIfQuestComplete()
+    private bool CheckIfQuestComplete()
     {
+        if (_complete)
+            return true;
+        
         foreach (var task in tasks)
         {
             if (!task.Complete)
-                return;
+                return false;
         }
 
         _complete = true;
-        QuestCompleted();
+        return true;
+    }
+
+    public void SetComplete()
+    {
+        if (_complete)
+            return;
+        
+        foreach (var task in tasks)
+        {
+            task.Complete = true;
+        }
+
+        _complete = true;
     }
     
-    public void QuestCompleted()
+    public void ResetQuest()
     {
+        ResetTasks();
+        _complete = false;
+    }
+    
+    public void ResetTasks()
+    {
+        foreach (var task in tasks)
+        {
+            task.Complete = false;
+        }
     }
 }
