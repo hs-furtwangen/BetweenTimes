@@ -801,6 +801,7 @@ GameObject:
   - component: {fileID: 8030401616625476198}
   - component: {fileID: 4847088099949569229}
   - component: {fileID: 4557172208453207109}
+  - component: {fileID: 2417836316968352200}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -836,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996e85f719b744cb970a23424376082a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isLocalPlayer: 0
+  _isDisabled: 0
   EventFireDown:
     m_PersistentCalls:
       m_Calls: []
@@ -844,6 +845,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   EventFireUp:
+    m_PersistentCalls:
+      m_Calls: []
+  EventRightDown:
+    m_PersistentCalls:
+      m_Calls: []
+  EventRight:
+    m_PersistentCalls:
+      m_Calls: []
+  EventRightUp:
     m_PersistentCalls:
       m_Calls: []
   EventAxis:
@@ -868,6 +878,7 @@ MonoBehaviour:
   CameraMovement: {fileID: 54584905}
   playerTransform: {fileID: 9017597189886982383}
   faceOrientationTransform: {fileID: 6448605275462028528}
+  characterController: {fileID: 2417836316968352200}
 --- !u!114 &54584905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,6 +1159,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!143 &2417836316968352200
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9017597188914978280}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9017597189886982288
 GameObject:
   m_ObjectHideFlags: 0
