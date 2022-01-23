@@ -12,8 +12,8 @@
 /Assets/AssetStoreOriginals/AsiaPacificCommonResidential/Art/Textures/Environment/Road/Curbstone/Curbstone_A_Albedo.tif
 /Assets/AssetStoreOriginals/AsiaPacificCommonResidential/Art/Textures/Vehicles/Scooter_A/Scooter_A_BNM.tiff
 /Assets/AssetStoreOriginals/AsiaPacificCommonResidential/Art/Textures/Vehicles/Scooter_A/Scooter_A_MaskMap.tif
-/Assets/AssetStoreOriginals/AsiaPacificCommonResidential/Art.zip
-/Assets/RunemarkStudio
+/AsianResidence
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
