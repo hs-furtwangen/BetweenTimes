@@ -11,32 +11,22 @@ namespace BetweenTime.Player
         private Camera camera;
         private BTPlayerInput playerInput;
 
-        // Start is called before the first frame update
         void Start()
         {
-            camera = GetComponentInChildren<Camera>();            
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            camera = GetComponentInChildren<Camera>();         
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            
+        void OnEnable() {
+            playerInput = GetComponent<BTPlayerInput>();
+            playerInput.EventOnAxis.AddListener(Move);
+            playerInput.EventOnMouse.AddListener(Look);
         }
 
-        void OnApplicationFocus(bool focus)
-        {
-            if (playerInput == null) playerInput = GetComponent<BTPlayerInput>();
-            if (focus)
-            {
-                Cursor.visible = false;
-                playerInput.EventOnAxis.AddListener(Move);
-                playerInput.EventOnMouse.AddListener(Look);
-            }
-            else
-            {
-                playerInput.EventOnAxis.RemoveListener(Move);
-                playerInput.EventOnMouse.RemoveListener(Look);
-            }
+        void OnDisable() {
+            playerInput.EventOnAxis.RemoveListener(Move);
+            playerInput.EventOnMouse.RemoveListener(Look);
         }
 
         void Move(float x, float y)
