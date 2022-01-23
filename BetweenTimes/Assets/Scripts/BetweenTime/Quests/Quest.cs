@@ -86,6 +86,9 @@ public class Quest
 
     public void SetComplete()
     {
+        if (_complete)
+            return;
+        
         foreach (var task in tasks)
         {
             task.Complete = true;

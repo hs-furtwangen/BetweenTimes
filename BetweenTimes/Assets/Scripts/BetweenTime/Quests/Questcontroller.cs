@@ -20,7 +20,11 @@ public class Questcontroller : MonoBehaviour
     #endregion Singleton
     
     public Quest[] quests;
- 
+
+    [Header("Debug")] 
+    [SerializeField] private bool showDebug;
+    [SerializeField] private Color debugColor;
+    
     #region Events
     public UnityEvent<string> EventOnQuestCompleted = new UnityEvent<string>();
     public UnityEvent<string> EventOnTaskCompleted = new UnityEvent<string>();
@@ -38,23 +42,23 @@ public class Questcontroller : MonoBehaviour
     
     public void OnTaskToken(string token)
     {
-        DebugColored.Log(this,Color.yellow,this, "Task complete "+token);
+        DebugColored.Log(showDebug,debugColor,this, "Task complete "+token);
         EventOnTaskCompleted?.Invoke(token);
     }
     public void OnQuestComplete(string token)
     {
-        DebugColored.Log(this,Color.yellow,this, "Quest complete "+token);
+        DebugColored.Log(showDebug,debugColor,this, "Quest complete "+token);
         EventOnQuestCompleted?.Invoke(token);
     }
     public void OnAllQuestsComplete()
     {
-        DebugColored.Log(this,Color.yellow,this, "All quests complete!");
+        DebugColored.Log(showDebug,debugColor,this, "All quests complete!");
         EventOnAllQuestsFinished?.Invoke();
     }
     
     public void Reset()
     {
-        DebugColored.Log(this,Color.yellow,this, "Reset quests!");
+        DebugColored.Log(showDebug,debugColor,this, "Reset quests!");
         foreach (var quest in quests)
         {
             quest.ResetQuest();
@@ -100,7 +104,17 @@ public class Questcontroller : MonoBehaviour
         {
             if (q.Token == token)
             {
-                q.SetComplete();
+                if (!q.Complete)
+                {
+                    q.SetComplete();
+                    OnQuestComplete(token);
+                    return;
+                }
+                else
+                {
+                    DebugColored.Log(showDebug,debugColor,this, "Quest already completed: "+token);
+                    return;
+                }
             }
         }
     }
