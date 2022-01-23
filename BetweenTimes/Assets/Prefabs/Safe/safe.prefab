@@ -92,8 +92,10 @@ GameObject:
   - component: {fileID: 1915871839419211292}
   - component: {fileID: 3258724714453832121}
   - component: {fileID: 782966169360295283}
-  - component: {fileID: 622744082137978766}
   - component: {fileID: 293159128362095606}
+  - component: {fileID: 3918331587660853441}
+  - component: {fileID: 1539115908}
+  - component: {fileID: 1539115913}
   m_Layer: 0
   m_Name: safe
   m_TagString: Untagged
@@ -108,7 +110,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287286108097463462}
-  m_LocalRotation: {x: -0.00000009735359, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -165,18 +167,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &622744082137978766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287286108097463462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624d21f7c538e0d49bb0237941e31ea6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &293159128362095606
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -190,6 +180,76 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5938014, y: 2.1, z: 1.98}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3918331587660853441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287286108097463462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 095652d77dcc48a9ae5449a5f4b4969a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  token: GhostOpenSafe
+  _tokenType: 0
+--- !u!114 &1539115908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287286108097463462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3bf9ab48789d9042b035cde8c4830d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventHoverEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  EventHoverExit:
+    m_PersistentCalls:
+      m_Calls: []
+  EventInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  showDebug: 1
+  wheelTransform: {fileID: 0}
+  EventOpen:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BetweenTime.Player.Quests.QuestTrigger, Assembly-CSharp
+        m_MethodName: ExecuteQuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1539115913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287286108097463462}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3473207273014654119
 GameObject:
   m_ObjectHideFlags: 0

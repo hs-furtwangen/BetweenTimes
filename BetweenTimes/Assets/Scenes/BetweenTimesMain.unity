@@ -760,6 +760,10 @@ PrefabInstance:
       propertyPath: onlineScene
       value: Assets/Scenes/OnlineGameRoom_post.unity
       objectReference: {fileID: 0}
+    - target: {fileID: 6706051759928497515, guid: b98c5eec57f769b4cbb3f74372a34a53, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 9017597188914978280, guid: ddd2061bc4598a242b1fe64331f7ecf3, type: 3}
     - target: {fileID: 6706051759928497516, guid: b98c5eec57f769b4cbb3f74372a34a53, type: 3}
       propertyPath: m_Enabled
       value: 0

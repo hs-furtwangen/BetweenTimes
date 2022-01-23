@@ -2,34 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BetweenTime.Network.Player;
-using DebugHelper;
 using BetweenTime.Player;
 
 public class Interactor : MonoBehaviour
 {
-    [Header("Debug")]
-    [SerializeField] private bool showDebug;
-    [SerializeField] private Color debugColor;
-
-    private Camera camera;
-    private BTPlayerMovement playerMovement;
-    private Interactable hovered;
+    [SerializeField] public BTPlayerMovement Movement;
+    [SerializeField] Transform faceOrientationTransform;
+    public BTPlayerInput Input { get => Movement.Input; }
     public Collectable Collected;
+    [SerializeField] bool showDebug;
+    Interactable hovered;
+
+    public void Focus(Interactable interactable)
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Movement.enabled = false;
+        Movement.LookAt(interactable.transform);
+    }
+
+    public void LoseFocus()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Movement.enabled = true;
+    }
 
     void Start()
     {
-        camera = GetComponentInChildren<Camera>();
-        playerMovement = GetComponent<BTPlayerMovement>();
-        BTPlayerInput playerInput = GetComponent<BTPlayerInput>();
-        playerInput.EventOnFireDown.AddListener(OnFire);
+        LoseFocus();
+    }
+
+    void OnEnable()
+    {
+        Input.EventFireDown.AddListener(Interact);
+    }
+
+    void OnDisable()
+    {
+        Input.EventFireDown.RemoveListener(Interact);
     }
 
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, camera.transform.forward, out hit, 2))
+        if (Physics.Raycast(faceOrientationTransform.position, faceOrientationTransform.forward, out hit, 2.5f))
         {
-            DebugColored.Log(showDebug, debugColor, this, "Did hit");
+            if (showDebug) Debug.Log("Raycast did hit");
             Interactable newHovered = hit.collider.GetComponent<Interactable>();
             if (newHovered != hovered)
             {
@@ -40,28 +59,13 @@ public class Interactor : MonoBehaviour
         }
         else
         {
-            DebugColored.Log(showDebug, debugColor, this, "Did not hit");
+            if (showDebug) Debug.Log("Raycast did not hit");
             hovered?.EventHoverExit.Invoke();
             hovered = null;
         }
     }
 
-    public void Focus(Interactable interactable)
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        camera.transform.LookAt(interactable.transform);
-        playerMovement.enabled = false;
-    }
-
-    public void LoseFocus()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        playerMovement.enabled = true;
-    }
-
-    void OnFire()
+    void Interact()
     {
         if (hovered)
         {
@@ -73,17 +77,14 @@ public class Interactor : MonoBehaviour
                     Collected = hovered as Collectable;
                     Collected.gameObject.SetActive(false);
                 }
-                else DebugColored.Log(showDebug, debugColor, this, "Inventory full!");
+                else if (showDebug) Debug.Log("Inventory full!", this);
             }
         }
-        else
+        else if (Collected)
         {
-            if (Collected)
-            {
-                Collected.gameObject.SetActive(true);
-                Collected.EventUse.Invoke(this);
-                Collected = null;
-            }
+            Collected.gameObject.SetActive(true);
+            Collected.EventUse.Invoke(this);
+            Collected = null;
         }
     }
 }
