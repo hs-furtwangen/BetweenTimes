@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [ExecuteAlways]
-public abstract class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour
 {
     public UnityEvent EventHoverEnter = new UnityEvent();
     public UnityEvent EventHoverExit = new UnityEvent();

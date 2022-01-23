@@ -13,13 +13,13 @@ public class TabSwitch : MonoBehaviour
     {
         if (!_toggle)
         {
-            tab1.SetActive(true);
-            tab2.SetActive(false);
+            if(tab1 != null) tab1.SetActive(true);
+            if(tab2 != null)tab2.SetActive(false);
         }
         else
         {
-            tab1.SetActive(false);
-            tab2.SetActive(true);
+            if(tab1 != null)tab1.SetActive(false);
+            if(tab2 != null)tab2.SetActive(true);
         }
         
     }
@@ -30,13 +30,13 @@ public class TabSwitch : MonoBehaviour
 
         if (!_toggle)
         {
-            tab1.SetActive(true);
-            tab2.SetActive(false);
+            if(tab1 != null)tab1.SetActive(true);
+            if(tab2 != null)tab2.SetActive(false);
         }
         else
         {
-            tab1.SetActive(false);
-            tab2.SetActive(true);
+            if(tab1 != null)tab1.SetActive(false);
+            if(tab2 != null) tab2.SetActive(true);
         }
         
     }
