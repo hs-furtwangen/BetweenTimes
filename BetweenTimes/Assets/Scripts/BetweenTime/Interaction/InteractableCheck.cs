@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Casket : Interactable
+public class InteractableCheck : Interactable
 {
     bool isOpen;
+
+    [SerializeField] private Collectable collectableToCheck;
+    
+    public UnityEvent EventAcceptedInteraction;
 
     protected override void OnEnable()
     {
@@ -14,10 +19,11 @@ public class Casket : Interactable
 
     void Open(Interactor interactor)
     {
-        if (interactor.Collected)
+        if (interactor.Collected == collectableToCheck)
         {
             Debug.Log("Opened casket");
             interactor.Collected = null;
+            EventAcceptedInteraction?.Invoke();
         }
     }
 }

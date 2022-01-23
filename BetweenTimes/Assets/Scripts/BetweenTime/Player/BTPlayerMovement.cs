@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BetweenTime.Network.Player;
+using DebugHelper;
 
 namespace BetweenTime.Player
 {
@@ -21,12 +22,30 @@ namespace BetweenTime.Player
             faceOrientationTransform.Rotate(-faceOrientationTransform.rotation.x, 0f, 0f);
         }
 
-        void OnEnable() {
+        void OnEnable()
+        {
+
+            if (CheckBTPlayerInput()) return;
+
             Input.EventAxis.AddListener(Move);
             Input.EventMouse.AddListener(Look);
         }
 
-        void OnDisable() {
+        private bool CheckBTPlayerInput()
+        {
+            if (Input == null) Input = GetComponent<BTPlayerInput>();
+            if (Input == null)
+            {
+                DebugColored.Log(true, Color.yellow, this, "There is no BTPlayerInputComponent!");
+                return true;
+            }
+
+            return false;
+        }
+
+        void OnDisable()
+        {
+            CheckBTPlayerInput();
             Input.EventAxis.RemoveListener(Move);
             Input.EventMouse.RemoveListener(Look);
         }

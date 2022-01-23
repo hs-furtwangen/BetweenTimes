@@ -47,7 +47,7 @@ public class BTPlayerGameManager : NetworkBehaviour
             _isRegsitered = true;
         }
 
-        _playerInput.EventOnFireUp.AddListener(ToggleReady);
+        _playerInput.EventFireUp.AddListener(ToggleReady);
     }
     
     public void ToggleReady()
@@ -60,7 +60,7 @@ public class BTPlayerGameManager : NetworkBehaviour
     
     public void OnGameStart()
     {
-        _playerInput.EventOnFireUp.RemoveListener(ToggleReady);
+        _playerInput.EventFireUp.RemoveListener(ToggleReady);
         
         EventOnGameStart?.Invoke();
     }
