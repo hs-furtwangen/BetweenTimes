@@ -23,9 +23,9 @@ public class BTPlayerNetworkCom : NetworkBehaviour
         if(playerController == null) playerController = BTPlayerController.GetLocalPlayer();
         if(inputModule == null) inputModule = playerController.GetComponent<BTPlayerInput>();
         
-        inputModule.EventOnFire.AddListener(OnFire);
-        inputModule.EventOnFireUp.AddListener(OnFireUp);
-        inputModule.EventOnFireDown.AddListener(OnFireDown);
+        inputModule.EventFire.AddListener(OnFire);
+        inputModule.EventFireUp.AddListener(OnFireUp);
+        inputModule.EventFireDown.AddListener(OnFireDown);
     }
 
     [Client]
