@@ -6,57 +6,41 @@ using BetweenTime.Network.Player;
 public class Safe : Interactable
 {
     [SerializeField] GameObject wheel;
-    Camera camera;
     bool isOpen;
-    Interactor interactor;
-    BTPlayerInput playerInput;
+    Interactor _interactor;
 
-    void OnEnable()
+    protected override void OnEnable()
     {
-        EventHoverEnter.AddListener(() =>
-        {
-            Debug.Log("Hover Enter");
-        });
-        EventHoverExit.AddListener(() =>
-        {
-            Debug.Log("Hover Exit");
-        });
+        base.OnEnable();
         EventInteract.AddListener(EnterCombination);
-    }
-
-    void OnDisable() {
-        EventInteract.RemoveListener(EnterCombination);
     }
 
     void EnterCombination(Interactor interactor)
     {
-        Debug.Log("Interact");
-        interactor.Focus(this);
-        this.interactor = interactor;
-        camera = interactor.GetComponentInChildren<Camera>();
-        playerInput = interactor.GetComponent<BTPlayerInput>();
-        playerInput.EventOnMouse.AddListener(RotateWheel);
-        playerInput.EventOnFireDown.AddListener(Submit);
+        if (showDebug) Debug.Log("Enter combination");
+        _interactor = interactor;
+        _interactor.Focus(this);
+        _interactor.Input.EventMouse.AddListener(RotateWheel);
+        _interactor.Input.EventFireDown.AddListener(Submit);
     }
 
     void Submit()
     {
-        Debug.Log("Submit");
+        if (showDebug) Debug.Log("Submit");
         isOpen = true;
-        interactor.LoseFocus();
-        playerInput.EventOnFireDown.RemoveListener(Submit);
-        playerInput.EventOnMouse.RemoveListener(RotateWheel);
-        interactor = null;
+        _interactor.Input.EventFireDown.RemoveListener(Submit);
+        _interactor.Input.EventMouse.RemoveListener(RotateWheel);
+        _interactor.LoseFocus();
+        _interactor = null;
     }
 
     void RotateWheel(float x, float y)
     {
-        Vector3 mouseToWorld = camera.ScreenToWorldPoint(Input.mousePosition - new Vector3(0, 0, camera.transform.position.z));
+        Vector3 mouseToWorld = _interactor.Movement.Camera.ScreenToWorldPoint(Input.mousePosition - new Vector3(0f, 0f, _interactor.Movement.Camera.transform.position.z));
         mouseToWorld.z = 0f;
         Vector3 difference = mouseToWorld - transform.position;
         difference.Normalize();
-
-        float angle = Mathf.Round(Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg / 18) * 18;
+        float angle = Mathf.Round(Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg / 18f) * 18f;
         wheel.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, angle);
     }
 }
