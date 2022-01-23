@@ -5,14 +5,11 @@ using UnityEngine;
 public class Casket : Interactable
 {
     bool isOpen;
-    void OnEnable()
-    {
-        EventInteract.AddListener(Open);
-    }
 
-    void OnDisable()
+    protected override void OnEnable()
     {
-        EventInteract.RemoveListener(Open);
+        base.OnEnable();
+        EventInteract.AddListener(Open);
     }
 
     void Open(Interactor interactor)

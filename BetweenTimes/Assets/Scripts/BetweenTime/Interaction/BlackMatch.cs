@@ -4,16 +4,10 @@ using UnityEngine;
 
 public class BlackMatch : Collectable
 {
-    void OnEnable()
+    protected override void OnEnable()
     {
-        Debug.Log("Add Throw");
+        base.OnEnable();
         EventUse.AddListener(ThrowMatch);
-    }
-
-    void OnDisable()
-    {
-        Debug.Log("Remove Throw");
-        EventUse.RemoveListener(ThrowMatch);
     }
 
     void ThrowMatch(Interactor interactor)

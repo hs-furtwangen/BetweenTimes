@@ -18,11 +18,11 @@ namespace BetweenTime.Network.Player
         [SerializeField] private bool _started;
         
         #region Events
-        public UnityEvent EventOnFireDown;
-        public UnityEvent EventOnFire;
-        public UnityEvent EventOnFireUp;
-        public UnityEvent<float, float> EventOnAxis = new UnityEvent<float, float>();
-        public UnityEvent<float, float> EventOnMouse = new UnityEvent<float, float>();
+        public UnityEvent EventFireDown;
+        public UnityEvent EventFire;
+        public UnityEvent EventFireUp;
+        public UnityEvent<float, float> EventAxis = new UnityEvent<float, float>();
+        public UnityEvent<float, float> EventMouse = new UnityEvent<float, float>();
         #endregion
 
         public void StartInputObservation()
@@ -37,23 +37,23 @@ namespace BetweenTime.Network.Player
             
             if (Input.GetButtonDown("Fire1"))
             {
-                EventOnFireDown?.Invoke();
+                EventFireDown?.Invoke();
             }
             if (Input.GetButton("Fire1"))
             {
-                EventOnFire?.Invoke();
+                EventFire?.Invoke();
             }
             if (Input.GetButtonUp("Fire1"))
             {
-                EventOnFireUp?.Invoke();
+                EventFireUp?.Invoke();
             }
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
-                EventOnAxis.Invoke(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                EventAxis.Invoke(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
-                EventOnMouse.Invoke(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+                EventMouse.Invoke(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             }
         }
     }
