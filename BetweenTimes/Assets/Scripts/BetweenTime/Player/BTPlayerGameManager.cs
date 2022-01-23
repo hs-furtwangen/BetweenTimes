@@ -10,7 +10,7 @@ using UnityEngine.Events;
 
 public class BTPlayerGameManager : NetworkBehaviour
 {
-    [SerializeField] private GameManager _gameManager;
+    private GameManager _gameManager;
     [SerializeField] private BTPlayerInput _playerInput;
     
     private bool _isReady;

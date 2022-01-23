@@ -619,6 +619,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4329155202320157204, guid: 9b736b0aa59c74a48815f4697529cb26, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4329155202320157207, guid: 9b736b0aa59c74a48815f4697529cb26, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -850,7 +854,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  _gameManager: {fileID: 0}
   _playerInput: {fileID: 4265642305311255544}
   EventReadyStateChanged:
     m_PersistentCalls:
