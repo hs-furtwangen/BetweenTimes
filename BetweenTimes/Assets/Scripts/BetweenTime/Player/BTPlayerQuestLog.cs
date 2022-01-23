@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DebugHelper;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,27 +20,41 @@ public class BTPlayerQuestLog : NetworkBehaviour
             _questcontroller.EventOnReset.AddListener(OnResetQuests);
             _questcontroller.EventOnTaskCompleted.AddListener(OnTaskComplete);
             _questcontroller.EventOnAllQuestsFinished.AddListener(OnAllQuestsComplete);
-            _questcontroller.EventOnQuestPartCompleted.AddListener(OnQuestComplete);
+            _questcontroller.EventOnQuestCompleted.AddListener(OnQuestComplete);
+            DebugColored.Log(true, Color.magenta, this, "Register QuestController");
+
         }
     }
 
     public void OnQuestComplete(string token)
     {
+        if (!isLocalPlayer)
+            return;
+        
         CmdQuestComplete(token);
     }
 
     public void OnTaskComplete(string token)
     {
+        if (!isLocalPlayer)
+            return;
+        
         CmdTaskComplete(token);
     }
 
     public void OnAllQuestsComplete()
     {
+        if (!isLocalPlayer)
+            return;
+        
         CmdAllQuestsComplete();
     }
 
     public void OnResetQuests()
     {
+        if (!isLocalPlayer)
+            return;
+        
         CmdOnResetQuests();
     }
 
@@ -49,9 +64,10 @@ public class BTPlayerQuestLog : NetworkBehaviour
         RpcQuestComplete(token);
     }
 
-    [ClientRpc]
+    [ClientRpc(includeOwner = false)]
     public void RpcQuestComplete(string token)
     {
+        DebugColored.Log(true, Color.magenta, "[Client]",this, "RpQuestComplete "+token);
         _questcontroller.SetQuestComplete(token);
     }
 
@@ -62,9 +78,10 @@ public class BTPlayerQuestLog : NetworkBehaviour
         
     }
     
-    [ClientRpc]
+    [ClientRpc(includeOwner = false)]
     public void RpcTaskComplete(string token)
     {
+        DebugColored.Log(true, Color.magenta, "[Client]",this, "RpcTaskComplete "+token);
         _questcontroller.SetTaskComplete(token);
     }
 
@@ -74,9 +91,10 @@ public class BTPlayerQuestLog : NetworkBehaviour
         RpcAllQuestsComplete();
     }
     
-    [ClientRpc]
+    [ClientRpc(includeOwner = false)]
     public void RpcAllQuestsComplete()
     {
+        DebugColored.Log(true, Color.magenta, "[Client]",this, "RpcAllQuests");
         _questcontroller.SetAllQuestsComplete();
     }
 
@@ -86,9 +104,10 @@ public class BTPlayerQuestLog : NetworkBehaviour
         RpcOnResetQuests(); 
     }
     
-    [ClientRpc]
+    [ClientRpc(includeOwner = false)]
     public void RpcOnResetQuests()
     {
-        _questcontroller.SetReset();
+        DebugColored.Log(true, Color.magenta, "[Client]",this, "RpcReset");
+        _questcontroller.Reset();
     }
 }

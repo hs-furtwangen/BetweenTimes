@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DebugHelper;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -18,37 +19,14 @@ public class Questcontroller : MonoBehaviour
     
     #endregion Singleton
     
-    public bool reset;
     public Quest[] quests;
-    private int currentQuest;
-
+ 
     #region Events
-    public UnityEvent<string> EventOnQuestPartCompleted = new UnityEvent<string>();
+    public UnityEvent<string> EventOnQuestCompleted = new UnityEvent<string>();
     public UnityEvent<string> EventOnTaskCompleted = new UnityEvent<string>();
     public UnityEvent EventOnAllQuestsFinished;
     public UnityEvent EventOnReset;
     #endregion Events
-    
-    private void OnEnable()
-    {
-        reset = false;
-        currentQuest = 0;
-
-        for (int i = 0; i < quests.Length; i++)
-        {
-           // quests[i].EventQuestComplete += OnQuestComplete;
-          //  quests[i].EventTaskComplete += TaskComplete;
-        }
-    }
-
-    private void OnDisable()
-    {
-        for (int i = 0; i < quests.Length; i++)
-        {
-          //  quests[i].EventQuestComplete -= OnQuestComplete;
-          //  quests[i].EventTaskComplete -= TaskComplete;
-        }
-    }
 
     private void Awake()
     {
@@ -57,87 +35,73 @@ public class Questcontroller : MonoBehaviour
         else
             Destroy(this);
     }
-
-    public void TaskComplete(string token)
+    
+    public void OnTaskToken(string token)
     {
-        foreach (var quest in quests)
-        {
-            if (quest.ContainsTask(token))
-            {
-                
-            }
-        }
-        
-       // CheckIfQuestComplete();
+        DebugColored.Log(this,Color.yellow,this, "Task complete "+token);
         EventOnTaskCompleted?.Invoke(token);
     }
-    
     public void OnQuestComplete(string token)
     {
-        if (currentQuest < quests.Length - 1)
-        {
-            Debug.Log("Quest geschafft "+token);
-            EventOnQuestPartCompleted?.Invoke(token);
-            currentQuest += 1;
-        }
-        else
-        {
-            Debug.Log("Spiel geschafft");
-            EventOnAllQuestsFinished?.Invoke();
-        }
+        DebugColored.Log(this,Color.yellow,this, "Quest complete "+token);
+        EventOnQuestCompleted?.Invoke(token);
     }
-
-    public void Restart()
+    public void OnAllQuestsComplete()
     {
-        if (reset)
-        {
-            for (int i = 0; i < quests.Length; i++)
-            {
-            //    quests[i].reset = true;
-            }
-            this.enabled = false;
-            this.enabled = true;
-        }
-        
-        EventOnReset?.Invoke();
+        DebugColored.Log(this,Color.yellow,this, "All quests complete!");
+        EventOnAllQuestsFinished?.Invoke();
     }
     
-    #region Entry points for setting Tasks // network workaround  
+    public void Reset()
+    {
+        DebugColored.Log(this,Color.yellow,this, "Reset quests!");
+        foreach (var quest in quests)
+        {
+            quest.ResetQuest();
+        }
+    }
+    
     /// <summary>
     /// For the network to call on this one, if the other player has finished a task
     /// </summary>
     /// <param name="token"></param>
     public void SetTaskComplete(string token)
     {
+        bool isNotCompleted = false;
         foreach (var q in quests)
         {
-            foreach (var t in q.tasks)
+            if (q.Complete)
+                continue;
+            
+            bool hasTask = false;
+            if (q.MarkTaskAsComplete(token))
             {
-                if (t.Token == token)
-                {
-                  //  t.TaskComplete();
-                }
+                OnTaskToken(token);
+                hasTask = true;
             }
+
+            if (q.Complete)
+            {
+                OnQuestComplete(q.Token);
+            }
+            else
+                isNotCompleted = true;
+
+            if (hasTask) return;
         }
+        
+        if(!isNotCompleted)
+            OnAllQuestsComplete();
     }
     
-
     public void SetQuestComplete(string token)
     {
         foreach (var q in quests)
         {
             if (q.Token == token)
             {
-                q.QuestCompleted();
+                q.SetComplete();
             }
-        }
-    }
-    
-    public void SetReset()
-    {
-        foreach (var quest in quests)
-        {
-            quest.QuestCompleted();
         }
     }
 
@@ -145,13 +109,7 @@ public class Questcontroller : MonoBehaviour
     {
         foreach (var quest in quests)
         {
-            quest.QuestCompleted();
+            quest.SetComplete();
         }
     }
-    private void Update()
-    {
-        Restart();
-    }
-    
-    #endregion Entry points for setting Tasks // network workaround
 }
