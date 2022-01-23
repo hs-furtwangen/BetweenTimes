@@ -261,11 +261,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   showDebug: 1
---- !u!1 &1123843330 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8689578224899258634, guid: 0696fb541818f1a4190b901632795813, type: 3}
-  m_PrefabInstance: {fileID: 1393836686}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1333922962
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +355,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1393836686
 PrefabInstance:
@@ -417,9 +412,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3918331587660853441, guid: 0696fb541818f1a4190b901632795813, type: 3}
+      propertyPath: token
+      value: GhostOpenSafe
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 622744082137978766, guid: 0696fb541818f1a4190b901632795813, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0696fb541818f1a4190b901632795813, type: 3}
+--- !u!114 &1393836687 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3918331587660853441, guid: 0696fb541818f1a4190b901632795813, type: 3}
+  m_PrefabInstance: {fileID: 1393836686}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539115907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 095652d77dcc48a9ae5449a5f4b4969a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1539115907 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1287286108097463462, guid: 0696fb541818f1a4190b901632795813, type: 3}
@@ -447,7 +457,22 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   showDebug: 1
-  wheel: {fileID: 1123843330}
+  wheelTransform: {fileID: 0}
+  EventOpen:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1393836687}
+        m_TargetAssemblyTypeName: BetweenTime.Player.Quests.QuestTrigger, Assembly-CSharp
+        m_MethodName: ExecuteQuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1539115913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,6 +496,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6448605275462028528, guid: ddd2061bc4598a242b1fe64331f7ecf3, type: 3}
   m_PrefabInstance: {fileID: 9017597188961106863}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1984396134
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.27671862
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959906, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497855130988959908, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
+      propertyPath: m_Name
+      value: QuestsController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7dee1d379028a5548aa4fd67deeb0854, type: 3}
 --- !u!1001 &5252794752235352385
 PrefabInstance:
   m_ObjectHideFlags: 0

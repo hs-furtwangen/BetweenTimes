@@ -52,7 +52,6 @@ public class Interactor : MonoBehaviour
             Interactable newHovered = hit.collider.GetComponent<Interactable>();
             if (newHovered != hovered)
             {
-                newHovered?.EventHoverEnter.AddListener(() => Debug.Log("Interactor hover enter"));
                 hovered?.EventHoverExit.Invoke();
                 newHovered?.EventHoverEnter.Invoke();
             }

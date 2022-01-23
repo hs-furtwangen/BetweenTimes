@@ -22,13 +22,11 @@ namespace BetweenTime.Player
         }
 
         void OnEnable() {
-            Debug.Log("Enable movement");
             Input.EventAxis.AddListener(Move);
             Input.EventMouse.AddListener(Look);
         }
 
         void OnDisable() {
-            Debug.Log("Disable movement");
             Input.EventAxis.RemoveListener(Move);
             Input.EventMouse.RemoveListener(Look);
         }

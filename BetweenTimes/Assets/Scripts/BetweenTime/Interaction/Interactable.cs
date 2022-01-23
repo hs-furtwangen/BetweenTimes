@@ -26,7 +26,6 @@ public abstract class Interactable : MonoBehaviour
     
     protected virtual void OnEnable()
     {
-        Debug.Log("Interactable OnEnable");
         EventHoverEnter.AddListener(() => outline.enabled = true);
         EventHoverExit.AddListener(() => outline.enabled = false);
         if (showDebug) {
