@@ -75,7 +75,7 @@ namespace BetweenTime.Network.Player
             //movement should only work, if the game has started
             DisableMovement();
 
-            if (_btPlayerInput != null) _btPlayerInput.StartInputObservation();
+            if (_btPlayerInput != null) _btPlayerInput.EnableInput();
             
             //set state of GameManager --> has already started --> start player
             if (_manager == null)

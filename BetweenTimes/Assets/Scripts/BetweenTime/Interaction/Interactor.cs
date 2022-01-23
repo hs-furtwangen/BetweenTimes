@@ -35,12 +35,14 @@ public class Interactor : MonoBehaviour
 
     void OnEnable()
     {
-        Input.EventFireDown.AddListener(Interact);
+        Input.EventFireDown.AddListener(OnFireDown);
+        Input.EventRightDown.AddListener(OnRightDown);
     }
 
     void OnDisable()
     {
-        Input.EventFireDown.RemoveListener(Interact);
+        Input.EventFireDown.RemoveListener(OnFireDown);
+        Input.EventRightDown.RemoveListener(OnRightDown);
     }
 
     void Update()
@@ -65,7 +67,7 @@ public class Interactor : MonoBehaviour
         }
     }
 
-    void Interact()
+    void OnFireDown()
     {
         if (hovered)
         {
@@ -74,17 +76,24 @@ public class Interactor : MonoBehaviour
             {
                 if (Collected == null)
                 {
+                    hovered?.EventHoverExit.Invoke();
                     Collected = hovered as Collectable;
                     Collected.gameObject.SetActive(false);
                 }
                 else if (showDebug) Debug.Log("Inventory full!", this);
             }
         }
-        else if (Collected)
+        
+    }
+
+    void OnRightDown()
+    {
+        if (Collected)
         {
             Collected.gameObject.SetActive(true);
             Collected.EventUse.Invoke(this);
             Collected = null;
-        }
+        } 
     }
+    
 }

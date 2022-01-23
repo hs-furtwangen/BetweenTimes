@@ -8,9 +8,12 @@ public class InteractableCheck : Interactable
     bool isOpen;
 
     [SerializeField] private Collectable collectableToCheck;
+
+    [SerializeField] private bool _consume;
     
     public UnityEvent EventAcceptedInteraction;
 
+    
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -22,7 +25,7 @@ public class InteractableCheck : Interactable
         if (interactor.Collected == collectableToCheck)
         {
             Debug.Log("Opened casket");
-            interactor.Collected = null;
+            if(_consume) interactor.Collected = null;
             EventAcceptedInteraction?.Invoke();
         }
     }

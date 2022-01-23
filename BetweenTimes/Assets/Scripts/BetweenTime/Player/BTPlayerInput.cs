@@ -15,7 +15,7 @@ namespace BetweenTime.Network.Player
     /// </summary>
     public class BTPlayerInput : MonoBehaviour
     {
-        [SerializeField] private bool _isLocalPlayer;
+        [SerializeField] private bool _isDisabled;
         
         #region Events
         public UnityEvent EventFireDown;
@@ -27,14 +27,20 @@ namespace BetweenTime.Network.Player
         public UnityEvent<float, float> EventAxis = new UnityEvent<float, float>();
         public UnityEvent<float, float> EventMouse = new UnityEvent<float, float>();
         #endregion
-
-        public void StartInputObservation()
+        
+        public void EnableInput()
         {
-            _isLocalPlayer = true;
+            _isDisabled = true;
         }
+
+        public void DisableInput()
+        {
+            _isDisabled = false;
+        }
+        
         public void Update()
         {
-            if (!_isLocalPlayer)
+            if (!_isDisabled)
                 return;
             
             if (Input.GetButtonDown("Fire1"))
