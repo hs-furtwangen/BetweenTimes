@@ -21,6 +21,9 @@ namespace BetweenTime.Network.Player
         public UnityEvent EventFireDown;
         public UnityEvent EventFire;
         public UnityEvent EventFireUp;
+        public UnityEvent EventRightDown;
+        public UnityEvent EventRight;
+        public UnityEvent EventRightUp;
         public UnityEvent<float, float> EventAxis = new UnityEvent<float, float>();
         public UnityEvent<float, float> EventMouse = new UnityEvent<float, float>();
         #endregion
@@ -45,6 +48,18 @@ namespace BetweenTime.Network.Player
             if (Input.GetButtonUp("Fire1"))
             {
                 EventFireUp?.Invoke();
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                EventRightDown?.Invoke();
+            }
+            if (Input.GetButton("Fire2"))
+            {
+                EventRight?.Invoke();
+            }
+            if (Input.GetButtonUp("Fire2"))
+            {
+                EventRightUp?.Invoke();
             }
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
