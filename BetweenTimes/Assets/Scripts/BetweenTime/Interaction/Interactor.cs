@@ -6,9 +6,10 @@ using BetweenTime.Player;
 
 public class Interactor : MonoBehaviour
 {
-    [SerializeField] public BTPlayerMovement Movement;
+    [SerializeField] BTPlayerMovement Movement;
     [SerializeField] Transform faceOrientationTransform;
     public BTPlayerInput Input { get => Movement.Input; }
+    public Camera Camera { get => Movement.Camera; }
     public Collectable Collected;
     [SerializeField] bool showDebug;
     Interactable hovered;
@@ -47,8 +48,7 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(faceOrientationTransform.position, faceOrientationTransform.forward, out hit, 2.5f))
+        if (Physics.Raycast(faceOrientationTransform.position, faceOrientationTransform.forward, out RaycastHit hit, 3f))
         {
             if (showDebug) Debug.Log("Raycast did hit");
             Interactable newHovered = hit.collider.GetComponent<Interactable>();

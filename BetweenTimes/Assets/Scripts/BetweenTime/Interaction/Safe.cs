@@ -55,7 +55,7 @@ public class Safe : Interactable
 
     void RotateWheel(float x, float y)
     {
-        Vector3 positionToScreen = _interactor.Movement.Camera.WorldToScreenPoint(wheelTransform.position);
+        Vector3 positionToScreen = _interactor.Camera.WorldToScreenPoint(wheelTransform.position);
         Vector3 difference = Input.mousePosition - positionToScreen;
         difference.Normalize();
         float angle = Mathf.Floor(Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg / degrePerNumber) * degrePerNumber;

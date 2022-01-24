@@ -397,7 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6448605275462028528}
   m_Layer: 0
-  m_Name: FaceOrientation
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -413,8 +413,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1491275568038114738}
+  m_Children: []
   m_Father: {fileID: 9017597189886982383}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -667,12 +666,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8109577010590235891}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9017597188693917610}
-  m_Father: {fileID: 6448605275462028528}
-  m_RootOrder: 0
+  m_Father: {fileID: 9017597188914978274}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9017597188693917613
 GameObject:
@@ -822,6 +821,7 @@ Transform:
   m_Children:
   - {fileID: 2005529533973342536}
   - {fileID: 9017597189886982383}
+  - {fileID: 1491275568038114738}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -877,7 +877,7 @@ MonoBehaviour:
   Input: {fileID: 9017597188914978275}
   CameraMovement: {fileID: 54584905}
   playerTransform: {fileID: 9017597189886982383}
-  faceOrientationTransform: {fileID: 6448605275462028528}
+  headTransform: {fileID: 6448605275462028528}
   characterController: {fileID: 2417836316968352200}
 --- !u!114 &54584905
 MonoBehaviour:
@@ -894,8 +894,8 @@ MonoBehaviour:
   Camera: {fileID: 9017597188693917612}
   cameraOrientationTransform: {fileID: 1491275568038114738}
   playerTransform: {fileID: 9017597189886982383}
-  faceOrientationTransform: {fileID: 6448605275462028528}
-  distance: 0
+  headTransform: {fileID: 6448605275462028528}
+  followSpeed: 3
 --- !u!114 &7730173976702659241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,4 +1256,4 @@ MonoBehaviour:
   Movement: {fileID: 9017597188914978276}
   faceOrientationTransform: {fileID: 6448605275462028528}
   Collected: {fileID: 0}
-  showDebug: 1
+  showDebug: 0
